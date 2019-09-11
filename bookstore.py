@@ -93,7 +93,7 @@ class BookStore:
                     new_id = res.lastrowid  # Get the ID of the new row in the table 
                     book.id = new_id  # Set this book's ID
             except sqlite3.IntegrityError as e:
-                raise BookError(f'Error - this book is already in the database. {book}') from e
+                BookError.print_error(self, e)
             finally:
                 con.close()
 
@@ -119,7 +119,7 @@ class BookStore:
             delete_all_sql = "DELETE FROM books"
 
             with sqlite3.connect(db) as con:
-                deleted = con.execute(delete_all_sql)
+                con.execute(delete_all_sql)
 
             con.close()
            
@@ -131,7 +131,8 @@ class BookStore:
             """
             
             if not book.id:
-                raise BookError('Book does not have ID, can\'t update')
+                e = 'null'
+                BookError.print_error(self, e)
 
             update_read_sql = 'UPDATE books SET title = ?, author = ?, read = ? WHERE rowid = ?'
 
@@ -141,9 +142,9 @@ class BookStore:
                 
             con.close()
             
-            # TODO raise BookError if book not found.
+           # if the book was not added, print the error
             if rows_modfied == 0:
-                raise BookError(f'Book with id {book.id} not found')
+                BookError.print_error(self, e)
 
 
 
@@ -289,4 +290,7 @@ class BookStore:
 
 class BookError(Exception):
     """ For BookStore errors. """
-    pass
+    #generic catch all error to display if something goes wrong, rather than crashing program
+    def print_error(self, e):
+        print("Error adding book. Please try again.")
+        return

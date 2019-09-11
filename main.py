@@ -70,10 +70,6 @@ def change_read():
         print("You have read ", book.title)
     else:
         print("You have not read ", book.title)
-<<<<<<< HEAD
-=======
-
->>>>>>> b120317b73ef45fd5a6c337c4eb099e25bbf3853
 
 def quit_program():
     ui.message('Thanks and bye!')
