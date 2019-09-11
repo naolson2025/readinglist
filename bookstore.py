@@ -119,7 +119,7 @@ class BookStore:
             delete_all_sql = "DELETE FROM books"
 
             with sqlite3.connect(db) as con:
-                deleted = con.execute(delete_all_sql)
+                con.execute(delete_all_sql)
 
             con.close()
            
