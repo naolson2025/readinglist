@@ -18,6 +18,12 @@ class Book:
 
 
     def save(self):
+        """=========================================================================
+            Explanantion of function: if the passed in Book object has an ID (checking to see if the object exists already),
+            then pass the book object to the update method which writes to the DB by first fetching the record then updating. 
+            If the book is not found, then it is a new book, and the add Book method is called which just inserts a new
+            record in the DB without the need to first fetch a record.
+        ========================================================================="""
         if self.id:
             self.bookstore._update_book(self)
         else:
