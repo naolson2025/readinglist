@@ -62,14 +62,14 @@ def change_read():
 
     book_id = ui.get_book_id()
     book = store.get_book_by_id(book_id)  
-
-    new_read = ui.get_read_value()     
-    book.read = new_read 
-    book.save()
-    if new_read == True:
-        print("You have read ", book.title)
-    else:
-        print("You have not read ", book.title)
+    if book != None:
+        new_read = ui.get_read_value()     
+        book.read = new_read 
+        book.save()
+        if new_read == True:
+            print("You have read ", book.title)
+        else:
+            print("You have not read ", book.title)
 
 def quit_program():
     ui.message('Thanks and bye!')
